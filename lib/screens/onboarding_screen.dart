@@ -48,7 +48,8 @@ class OnboardingScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 15),
                         child: Text("Get Started",
-                            style: TextStyle(fontSize: 18, color: Colors.white)),
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.white)),
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.blue),
@@ -73,8 +74,6 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ],
-        )
-       )
-    );
+        )));
   }
 }

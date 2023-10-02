@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: HomeScreen(),
+      home: OnboardingScreen(),
     );
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/form_screen.dart';
+import 'package:justduit/screens/form_signup.dart';
+import 'package:lottie/lottie.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -12,6 +15,7 @@ class OnboardingScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset("assets/images/menabung.png"),
+            // Lottie.network('https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json'),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),
               padding: EdgeInsets.all(16),
@@ -44,7 +48,14 @@ class OnboardingScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FormSignup(),
+                          ),
+                        );
+                      },
                       child: Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 15),
                         child: Text("Get Started",
@@ -61,13 +72,22 @@ class OnboardingScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: () {},
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(
-                          "I already have an account",
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(16),
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FormScreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'I already have an account',
+                                style:
+                                    TextStyle(fontSize: 16, color: Colors.grey),
+                                textAlign: TextAlign.center,
+                              ))),
                     ),
                   )
                 ],

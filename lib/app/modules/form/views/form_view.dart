@@ -1,36 +1,13 @@
-import 'package:flutter/services.dart';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:justduit/screens/form_signup.dart';
-import 'package:justduit/screens/home_screen.dart';
+import 'package:get/get.dart';
 
-class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+import '../controllers/form_controller.dart';
 
-  @override
-  State<FormScreen> createState() => _FormScreenState();
-}
-
-class _FormScreenState extends State<FormScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  bool isEmailValid = true;
-  bool isPasswordValid = true;
-  bool isPasswordEmpty = false; // Initially valid
-  final RegExp emailRegex =
-      RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-
-  void _validateEmail(String email) {
-    setState(() {
-      isEmailValid = emailRegex.hasMatch(email);
-    });
-  }
-
-  void _validatePassword(String Password) {
-    setState(() {
-      isPasswordValid = passwordController.text.isNotEmpty;
-    });
-  }
-
+class FormView extends GetView<FormController> {
+  
+  const FormView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,16 +49,16 @@ class _FormScreenState extends State<FormScreen> {
                     height: 10,
                   ),
                   TextField(
-                    controller: emailController,
-                    onChanged: _validateEmail, // Validate on change
+                    controller: controller.emailController,
+                    onChanged: controller.validateEmail, // Validate on change
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(13),
-                        borderSide: isEmailValid
+                        borderSide: controller.isEmailValid
                             ? BorderSide(color: Colors.transparent)
                             : BorderSide(color: Colors.red),
                       ),
-                      errorText: isEmailValid ? null : 'Email is not valid',
+                      errorText: controller.isEmailValid ? null : 'Email is not valid',
                     ),
                   ),
                   SizedBox(
@@ -104,17 +81,17 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                   TextField(
                     obscureText: true,
-                    controller: passwordController,
-                    onChanged: _validatePassword, // Validate on change
+                    controller: controller.passwordController,
+                    onChanged: controller.validatePassword, // Validate on change
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(13),
-                        borderSide: isEmailValid
+                        borderSide: controller.isEmailValid
                             ? BorderSide(color: Colors.transparent)
                             : BorderSide(color: Colors.red),
                       ),
                       errorText:
-                          isEmailValid ? null : 'Please fill the password',
+                          controller.isEmailValid ? null : 'Please fill the password',
                     ),
                   ),
                   // TextField(
@@ -141,27 +118,27 @@ class _FormScreenState extends State<FormScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        isEmailValid = emailController.text.isNotEmpty;
-                        isPasswordEmpty = passwordController.text.isEmpty; // Periksa apakah password kosong
+                        controller.isEmailValid = controller.emailController.text.isNotEmpty;
+                        controller.isPasswordEmpty = controller.passwordController.text.isEmpty; // Periksa apakah password kosong
 
-                        if (isEmailValid && !isPasswordEmpty) {
+                        if (controller.isEmailValid && !controller.isPasswordEmpty) {
                           // Email valid dan password diisi, navigasi ke HomeScreen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ),
-                          );
-                        } else if (isPasswordEmpty) {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => HomeScreen(),
+                          //   ),
+                          // );
+                        } else if (controller.isPasswordEmpty) {
                           // Email tidak valid atau password kosong, atur pesan kesalahan jika password kosong
-                            setState(() {
-                              isPasswordEmpty = true;
-                            });
+
+                              controller.isPasswordEmpty = true;
+
                           // Tidak ada tindakan tambahan diperlukan jika email tidak valid
-                        } else if (!isEmailValid){
-                          setState(() {
-                              isEmailValid = true;
-                            });
+                        } else if (!controller.isEmailValid){
+
+                              controller.isEmailValid = true;
+
                         }
                       },
                       child: Padding(
@@ -183,12 +160,12 @@ class _FormScreenState extends State<FormScreen> {
                           padding: const EdgeInsets.all(16),
                           child: TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => FormSignup(),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => FormSignup(),
+                                //   ),
+                                // );
                               },
                               child: const Text(
                                 'Create New Account',

@@ -237,6 +237,7 @@ class _FormSignupState extends State<FormSignup> {
                                 builder: (context) => HomeScreen(),
                               ),
                             );
+                            FocusScope.of(context).unfocus();
                           } else if (isPasswordEmpty) {
                             // Email tidak valid atau password kosong, atur pesan kesalahan jika password kosong
                             setState(() {
@@ -283,7 +284,8 @@ class _FormSignupState extends State<FormSignup> {
                                   textAlign: TextAlign.center,
                                 ))),
                       ),
-                    )
+                    ),
+                    SizedBox(height: 200),
                   ],
                 ),
               ),
